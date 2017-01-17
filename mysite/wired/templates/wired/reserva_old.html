@@ -1,0 +1,69 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Experimentos Cabeados{% endblock %}
+
+{% block head %}
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'wired/css/wired.css' %}" media="all"/>
+    <link rel="stylesheet" href="{% static 'wired/js/jquery-ui-1.12.1.custom/jquery-ui.css' %}">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="{% static 'wired/js/jquery-ui-1.12.1.custom/jquery-ui.js'%}"></script>
+    <script>
+      $( function() {
+        $( "#datepicker" ).datepicker({
+            dateFormat: "yy-mm-dd"
+        });
+      } );
+    </script>
+{% endblock %}
+
+{% block addMenu %}
+    <li><a href="#">Experimentos</a>
+        <ul>
+            <li><a href="{% url 'testeBanco:index' %}">Sobre</a></li>
+            <li><a href="{% url 'testeBanco:reserva' %}">Experimentos 1</a></li>
+            <li><a href="#">Experimentos 1</a></li>
+            <li><a href="#">Experimento 2</a></li>
+        </ul>
+    </li>
+{% endblock %}
+
+{% block main %}
+    <form action="{% url 'testeBanco:reservando' %}" method="post">
+        {% csrf_token %}
+        <fieldset id="formulario">
+            <legend>Reserve os Nós:</legend>
+            <label for="">Escolha uma data:</label>
+            <input type="text" id="datepicker" size="30"/>
+            <label for="">Escolha a hora:</label>
+            <select name="hh">
+                {% for x in range1 %}
+                    <option value="0{{ x }}">0{{ x }}</option>
+                {% endfor %}
+                {% for i in range2 %}
+                    <option value="{{ i }}">{{ i }}</option>
+                {% endfor %}
+            </select>
+            <p >hora</p>
+            <select name="hm">
+                <option value="00">00</option>
+                <option value="30">30</option>
+            </select>
+            <p >min</p>
+            <label for="">Escolha a duração:</label>
+            <select name="duracao">
+                {% for i in range3 %}
+                    <option value="{{ i }}">{{ i }}</option>
+                {% endfor %}
+            </select>
+            </select>
+            <label for="">Escolha os nós</label>
+            <input type="checkbox" name="node 1" value=""> node 1
+            <input type="checkbox" name="node 7" value=""> node 7
+            <input type="checkbox" name="node 8" value=""> node 8
+            <input type="checkbox" name="node 9" value=""> node 9
+            <input type="submit" value="Reservar">
+        </fieldset>
+
+    </form>
+{% endblock %}

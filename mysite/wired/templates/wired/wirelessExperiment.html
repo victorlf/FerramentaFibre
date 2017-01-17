@@ -1,0 +1,60 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Wireless Experiment{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="https://cdn.pydata.org/bokeh/release/bokeh-0.12.3.min.css" type="text/css">
+    <script type="text/javascript" src="https://cdn.pydata.org/bokeh/release/bokeh-0.12.3.min.js"></script>
+    {{ the_script|safe }}
+{% endblock %}
+
+{% block addMenu %}
+    <li class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Experimentos <span class="caret"></span></a>
+      <ul class="dropdown-menu">
+        <li><a href="{% url 'wired:index' %}">Sobre</a></li>
+        <li><a href="{% url 'wired:reserva' %}">Reservar Nós</a></li>
+        <li><a href="{% url 'wired:wirelessExperiment' %}">Wireless Experiment</a></li>
+        <li><a href="{% url 'wired:powerControlExperiment' %}">Power Control Experiment </a></li></li>
+        <li><a href="{% url 'wired:tcpBitrateExperiment' %}">TCP Bitrate Experiment </a></li>
+      </ul>
+    </li>
+{% endblock %}
+
+{% block main %}
+    <div class="container">
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#sobre">Sobre</a></li>
+            <li><a data-toggle="tab" href="#runexp">Rodar Experimento</a></li>
+        </ul>
+
+        <div class="tab-content">
+            <div id="sobre" class="tab-pane fade in active">
+                <h3>Uma brever expelicação sobre o experimento</h3>
+            </div>
+            <div id="runexp" class="tab-pane fade">
+                <ul class="nav nav-tabs">
+                    <li><a data-toggle="tab" href="#uff">UFF</a></li>
+                    <li class="active"><a data-toggle="tab" href="#ufg">UFG</a></li>
+                    <li><a data-toggle="tab" href="#ufpe">UFPE</a></li>
+                    <li><a data-toggle="tab" href="#ufrj">UFRJ</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div id="uff" class="tab-pane fade ">
+                        {{ UFFthe_div|safe }}
+                    </div>
+                    <div id="ufg" class="tab-pane fade in active">
+                        {{ UFGthe_div|safe }}
+                    </div>
+                    <div id="ufpe" class="tab-pane fade in active">
+
+                    </div>
+                    <div id="ufrj" class="tab-pane fade in active">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

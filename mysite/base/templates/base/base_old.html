@@ -1,0 +1,50 @@
+{# os blocks são colocados para incluir elementos específicos de cada página #}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Index{% endblock %}</title>
+    <meta charset="UTF-8">
+	<meta name="keywords" content="OMF"/>
+	<meta name="author" content="Victor Fonseca"/>
+
+	<!--______ Área de inclusão de stylesheets e favicon da página ______-->
+
+{#	<link href="/AST/img/BNDES.ico" id="favicon" rel="shortcut icon" title="favicon"/>#}
+	<link href='https://fonts.googleapis.com/css?family=Open+Sans|Ubuntu' rel='stylesheet' type='text/css'>
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'omf/omf.css' %}" media="all"/>
+    {% block head %}
+    {% endblock %}
+</head>
+{% block script %}
+{% endblock %}
+<body>
+<header>
+    <h1><a href="/omf">Laboratório Remoto de Redes de Computadores</a></h1>
+</header>
+<nav>
+    <ul>
+        <li><a href="#">Aplicativos</a>
+            <ul>
+                <li><a href="{% url 'omf:index' %}">Experimentos Sem Fio</a></li>
+                <li><a href="{% url 'testeBanco:index' %}">Experimentos Cabeados</a></li>
+            </ul>
+        </li>
+        <li><a href="#">Institucional</a>
+            <ul>
+                <li><a href="">Sobre</a></li>
+            </ul>
+        </li>
+        {% block addMenu %}
+        {% endblock %}
+    </ul>
+</nav>
+    <main>
+        {% block main %}
+        {% endblock %}
+    </main>
+    <footer>
+    </footer>
+</body>
+</html>

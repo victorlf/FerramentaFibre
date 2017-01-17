@@ -1,0 +1,19 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Experimentos Nós Fixos{% endblock %}
+
+{% block addMenu %}
+     <li class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Experimentos <span class="caret"></span></a>
+      <ul class="dropdown-menu">
+        <li><a href="{% url 'wired:index' %}">Sobre</a></li>
+        <li><a href="{% url 'wired:reserva' %}">Reservar Nós</a></li>
+        <li><a href="{% url 'wired:wirelessExperiment' %}">Wireless Experiment</a></li>
+        <li><a href="{% url 'wired:powerControlExperiment' %}">Power Control Experiment </a></li></li>
+        <li><a href="{% url 'wired:tcpBitrateExperiment' %}">TCP Bitrate Experiment </a></li>
+      </ul>
+    </li>
+{% endblock %}
+
+{% block main %}
+{% endblock %}

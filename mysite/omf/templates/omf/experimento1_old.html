@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Experimento 1</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'omf/experimento1.css' %}"/>
+    <!--<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu"/>-->
+    <script type="text/javascript" src="{% static 'omf/js/jquery.js' %}"></script>
+    <script type="text/javascript" src="{% static 'omf/js/jquery.flot.js' %}"></script>
+    <script type="text/javascript" src="{% static 'omf/js/jquery.flot.time.js' %}"></script>
+</head>
+<nav>
+    <ul>
+        <li><a href="">Experimentos Cabeados</a>
+            <ul>
+                <li><a href="#">Experimento 1</a></li>
+                <li><a href="#">Experimento 2</a></li>
+                <li><a href="#">Experimento 3</a></li>
+            </ul>
+        </li>
+        <li><a href="">Experimentos Sem Fio</a>
+            <ul>
+                <li><a href="{% url 'omf:exp1' %}" title="Variação do sinal em relação a distância">Experimento 1</a></li>
+                <li><a href="#">Experimento 2</a></li>
+                <li><a href="#">Experimento 3</a></li>
+            </ul>
+        </li>
+    </ul>
+</nav>
+<body>
+{% block content %}
+<div id="chart">
+    {{ chart.as_html }}
+<form action="{% url 'omf:scan' %}">
+    <input type="submit" value="button"/>
+</form>
+</div>
+{% endblock %}
+</body>
+</html>

@@ -1,0 +1,67 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Experimento 1{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="https://cdn.pydata.org/bokeh/release/bokeh-0.12.3.min.css" type="text/css">
+    <script type="text/javascript" src="https://cdn.pydata.org/bokeh/release/bokeh-0.12.3.min.js"></script>
+    {{ the_script|safe }}
+{% endblock %}
+
+{% block addMenu %}
+    <li class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Experimentos <span class="caret"></span></a>
+      <ul class="dropdown-menu">
+        <li><a href="{% url 'omf:index' %}">Sobre</a></li>
+        <li><a href="{% url 'omf:experimento1' %}">Experimentos 1</a></li>
+        <li><a href="{% url 'omf:experimento2' %}">Experimentos 2</a></li>
+      </ul>
+    </li>
+{% endblock %}
+
+{% block script %}
+    <script type="text/javascript">
+        var myWindow;
+
+        function openWin() {
+            myWindow = window.open("{% url 'omf:trainControl' %}", "myWindow", "width=1000,height=500");
+            //myWindow.document.write("<p>This is 'myWindow'</p>");
+        }
+
+        function closeWin() {
+            myWindow.close();
+        }
+    </script>
+{% endblock %}
+
+{% block main %}
+    <div class="container">
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#sobre">Sobre</a></li>
+            <li><a data-toggle="tab" href="#runexp">Rodar Experimento</a></li>
+        </ul>
+
+        <div class="tab-content">
+            <div id="sobre" class="tab-pane fade in active">
+                <h3>Uma brever expelicação sobre o experimento</h3>
+            </div>
+            <div id="runexp" class="tab-pane fade">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#uff">UFF</a></li>
+
+                </ul>
+                <div class="tab-content">
+                    <div id="uff" class="tab-pane fade in active">
+                        <div class="col col-md-10">
+                            {{ the_div|safe }}
+                        </div>
+                        <div class="col col-md-2">
+                            <button type="button" class="btn btn-primary btn-lg" onclick='openWin()'>Controlar e Vizualizar o Nó Móvel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

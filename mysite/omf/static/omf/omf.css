@@ -1,0 +1,35 @@
+* {margin: 0; padding: 0; border: 0; outline: none;}
+body {font-family: 'Open Sans', sans serif; font-size: 12px; line-height: 1.5em; background-color: #EEE}
+#container {width: 100%; margin: 0 auto;}
+a {text-decoration: none; color: #FFF;}
+main {margin: 10px auto;}
+
+/* ______ Header ______ */
+
+header {/*background: url("img/fundo_topo.jpg") repeat-x; */height: 60px;; background-color: #0E9753;}
+h1, h2 {font-family: 'Ubuntu', sans serif; font-size: 2em; text-align: center; color: #FFF; line-height: 1.5em; padding: 10px 15px; float: left;}
+h2 {font-size: 1.5em; line-height: 2em}
+#logo {float: right; padding: 15px 10px;}
+#logo img {max-height: 30px;}
+
+
+/* ______ Menu ______ */
+
+nav {/*background: url("img/fundo_menu_horizontal.jpg") repeat-x;*/ height: 40px; background-color: #1C629D;}
+nav ul {list-style: none; }
+nav ul li {float: left; line-height: 40px; position: relative;}
+nav ul li a {display: block; color: #FFF; padding: 0 15px; text-align: center; font-size: 1.1em;}
+nav ul li:hover {/*background: url("img/fundo_menu_hover.png") repeat-x;*/ background-color: #575F62;}
+nav ul ul {display: none; position: absolute; top: 39px; left: 0; /*background: url("img/fundo_menu_hover.png");*/ background-color: #575F62; font-size: 0.8em;}
+nav ul ul ul {display: none; position: absolute; top: 0px; left: 300px; /*background: url("img/fundo_menu_hover.png");*/ background-color: #575F62; font-size: 0.8em; border-left: solid 1px #3B3B3B ; }
+nav ul ul li {line-height: 40px}
+nav ul ul ul li {line-height: 40px;}
+nav ul ul li a {display: block; /*background: url("img/fundo_menu_hover.png");*/ background-color: #575F62; width: 270px; text-align: left;}
+nav ul ul ul li a {display: block; /*background: url("img/fundo_menu_hover.png");*/ background-color: #575F62; width: 270px; text-align: left;}
+nav ul li:hover ul {display: block;}
+nav ul li:hover ul ul {display: none;}
+nav ul ul li:hover ul {display: block; /*background: url("img/fundo_menu_hover.png");*/  background-color: #575F62; width: 270px; text-align: left; color:#FFF; font-size: 1.1em;line-height: 40px; }
+nav ul ul li a:hover {font-style: italic;}
+
+/*#posicao_fixa {position: fixed; width: 100%; top: 0; z-index: 1}*/
+

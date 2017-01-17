@@ -1,0 +1,294 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Experimentos Cabeados{% endblock %}
+
+{% block head %}
+    {% load staticfiles %}
+    <!-- Include Required Prerequisites -->
+    <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/1/jquery.min.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+
+
+    <script type="text/javascript">
+        $(function() {
+            $('input[name="data"]').daterangepicker({
+                singleDatePicker: true,
+                showDropdowns: true,
+                locale: {
+                    format: 'YYYY-MM-DD'
+                }
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready( function() {
+            $('a[data-toggle="tab"]').on('click',function(){
+
+              $("#universidade").val(this.text);
+
+              $('.form-check-label input[type="checkbox"]').prop('checked', false);
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block addMenu %}
+    <li class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Experimentos <span class="caret"></span></a>
+      <ul class="dropdown-menu">
+        <li><a href="{% url 'wired:index' %}">Sobre</a></li>
+        <li><a href="{% url 'wired:reserva' %}">Reservar Nós</a></li>
+        <li><a href="{% url 'wired:wirelessExperiment' %}">Wireless Experiment</a></li>
+        <li><a href="{% url 'wired:powerControlExperiment' %}">Power Control Experiment </a></li></li>
+        <li><a href="{% url 'wired:tcpBitrateExperiment' %}">TCP Bitrate Experiment </a></li>
+      </ul>
+    </li>
+{% endblock %}
+
+{% block main %}
+    {% load staticfiles %}
+    <div class="container">
+        {% if messages %}
+            {% for message in messages %}
+                {% if message.tags == "warning" %}
+                    <div class="alert alert-warning">
+                        <strong>Warning!</strong>
+                        Erro ocorrido: <a href="#" class="alert-link">{{ message }}</a>
+                    </div>
+                {% elif message.tags == "success" %}
+                    <div class="alert alert-success">
+                        <strong>Success!</strong>
+                        Sua reserva foi <a href="#" class="alert-link">{{ message }}</a>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+        <form action="{% url 'wired:reservando' %}" method="post">
+            {% csrf_token %}<!--Necessário para um formulário do Django-->
+            <div class="form-group">
+                <label for="datepicker">Escolha uma data:</label>
+                <input type="text" class="form-control" name="data" size="30"/>
+            </div>
+            <div class="form-group">
+                <label for="hora">Escolha a hora:</label>
+                <select class="form-control" id="" name="hora">
+                    {% for x in range1 %}
+                        <option value="0{{ x }}">0{{ x }}</option>
+                    {% endfor %}
+                    {% for i in range2 %}
+                        <option value="{{ i }}">{{ i }}</option>
+                    {% endfor %}
+                </select>
+                <small id="hora" class="form-text text-muted">Hora</small>
+                <!--<p >hora</p>-->
+                <select class="form-control" id="" name="minuto">
+                    <option value="00">00</option>
+                    <option value="30">30</option>
+                </select>
+                <small id="minuto" class="form-text text-muted">Minuto</small>
+                <!--<p >min</p>-->
+            </div>
+            <div class="form-group">
+                <label for="duracao">Escolha a duração:</label>
+                <select class="form-control" id="duracao" name="duracao">
+                    {% for i in range3 %}
+                        <option value="{{ i }}">{{ i }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <!--<div class="form-group">
+                <label for="escolhaNos">Escolha os Nós:</label>
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="checkbox"  name="node1" value="1">
+                         Node 1
+                    </label>
+                </div>
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="checkbox" name="node7" value="7">
+                         Node 7
+                    </label>
+                </div>
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="checkbox" name="node8" value="8">
+                         Node 8
+                    </label>
+                </div>
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="checkbox" name="node9" value="9">
+                         Node 9
+                    </label>
+                </div>
+            </div>-->
+            <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#uff">UFF</a></li>
+            <li><a data-toggle="tab" href="#ufg">UFG</a></li>
+            <li><a data-toggle="tab" href="#ufpe">UFPE</a></li>
+            <li><a data-toggle="tab" href="#ufrj">UFRJ</a></li>
+            </ul>
+          <input id="universidade" name="universidade" value="UFF" type="hidden">
+          <div class="tab-content">
+            <div id="uff" class="tab-pane fade in active">
+              <h3>Universidade Federal Fluminense</h3>
+              <div class="form-group">
+                <label for="escolhaNos">Escolha os Nós:</label>
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="checkbox"  name="UFFnode1" value="">
+                         Node 1
+                    </label>
+                </div>
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="checkbox" name="UFFnode2" value="">
+                         Node 7
+                    </label>
+                </div>
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="checkbox" name="UFFnode3" value="">
+                         Node 8
+                    </label>
+                </div>
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="checkbox" name="UFFnode4" value="">
+                         Node 9
+                    </label>
+                </div>
+              </div>
+            </div>
+            <div id="ufg" class="tab-pane fade">
+              <h3>Universidade Federal de Goias</h3>
+              <div class="form-group">
+                <img src="{% static "wired/img/Modelo_Mapa_WirelessNodes-1.png" %}">
+              </div>
+              <div class="form-group">
+                <label for="escolhaNos">Escolha os Nós:</label>
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="checkbox"  name="UFGnode1" value="1">
+                         Node 1
+                    </label>
+                </div>
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="checkbox" name="UFGnode2" value="7">
+                         Node 7
+                    </label>
+                </div>
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="checkbox" name="UFGnode3" value="8">
+                         Node 8
+                    </label>
+                </div>
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="checkbox" name="UFGnode4" value="9">
+                         Node 9
+                    </label>
+                </div>
+              </div>
+            </div>
+            <div id="ufpe" class="tab-pane fade">
+              <h3>Universidade Federal de Pernambuco</h3>
+              <div class="form-group">
+                <img src="{% static "wired/img/mapa_ilha_UFPE-1.png" %}">
+              </div>
+              <div class="form-group">
+                <label for="escolhaNos">Escolha os Nós:</label>
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="checkbox"  name="UFPEnode1" value="14">
+                         Node 1
+                    </label>
+                </div>
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="checkbox" name="UFPEnode2" value="13">
+                         Node 2
+                    </label>
+                </div>
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="checkbox" name="UFPEnode3" value="12">
+                         Node 3
+                    </label>
+                </div>
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="checkbox" name="UFPEnode4" value="15">
+                         Node 4
+                    </label>
+                </div>
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="checkbox"  name="UFPEnode5" value="16">
+                         Node 5
+                    </label>
+                </div>
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="checkbox" name="UFPEnode6" value="17">
+                         Node 6
+                    </label>
+                </div>
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="checkbox" name="UFPEnode7" value="18">
+                         Node 7
+                    </label>
+                </div>
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="checkbox" name="UFPEnode8" value="19">
+                         Node 8
+                    </label>
+                </div>
+              </div>
+            </div>
+            <div id="ufrj" class="tab-pane fade">
+              <h3>Universidade Federal do Rio de Janeiro</h3>
+              <div class="form-group">
+                <img src="{% static "wired/img/Modelo_Mapa_WirelessNodes-UFRJ_v3-768x522.png" %}">
+              </div>
+              <div class="form-group">
+                <label for="escolhaNos">Escolha os Nós:</label>
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="checkbox"  name="UFRJnode1" value="6">
+                         Node 9
+                    </label>
+                </div>
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="checkbox" name="UFRJnode2" value="2">
+                         Node 10
+                    </label>
+                </div>
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="checkbox" name="UFRJnode3" value="3">
+                         Node 23
+                    </label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <button type="submit" class="btn btn-primary">Reservar</button>
+          </div>
+        </form>
+    </div>
+{% endblock %}
+
+{% block js %}
+    <!-- Include Date Range Picker -->
+    <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
+{% endblock %}

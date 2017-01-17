@@ -1,0 +1,64 @@
+{# os blocks são colocados para incluir elementos específicos de cada página #}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Index{% endblock %}</title>
+	<meta name="keywords" content="OMF"/>
+	<meta name="author" content="Victor Fonseca"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!--______ Área de inclusão de stylesheets e favicon da página ______-->
+
+{#	<link href="/AST/img/BNDES.ico" id="favicon" rel="shortcut icon" title="favicon"/>#}
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'base/css/bootstrap.css' %}" media="all"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'base/css/custom.css' %}" media="all"/>
+    {% block head %}
+    {% endblock %}
+</head>
+{% block script %}
+{% endblock %}
+<body onload="createImageLayer();">
+    <header>
+        <div class="container">
+            <div class = "page-header">
+               <h1><a href="/" class="v4-tease">Laboratório Remoto de Redes de Computadores</a></h1>
+            </div>
+        </div>
+    </header>
+        <nav class="navbar navbar-dark">
+            <div class="container">
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                  <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Aplicativos <span class="caret"></span></a>
+                      <ul class="dropdown-menu">
+                        <li><a href="{% url 'omf:index' %}">Experimentos Sem Fio</a></li>
+                        <li><a href="{% url 'wired:index' %}">Experimentos Cabeados</a></li>
+                      </ul>
+                    </li>
+                      <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Institucional <span class="caret"></span></a>
+                      <ul class="dropdown-menu">
+                        <li><a href="">Sobre</a></li>
+                      </ul>
+                    </li>
+                    {% block addMenu %}
+                    {% endblock %}
+                  </ul>
+                </div>
+            </div>
+        </nav>
+    <main>
+        {% block main %}
+        {% endblock %}
+    </main>
+    <footer>
+    </footer>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" integrity="sha384-3ceskX3iaEnIogmQchP8opvBy3Mi7Ce34nWjpBIwVTHfGYWQS9jwHDVRnpKKHJg7" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.7/js/tether.min.js" integrity="sha384-XTs3FgkjiBgo8qjEjBk0tGmf3wPrWtA6coPfQDfFEY8AnYJwjalXCiosYRBIBZX8" crossorigin="anonymous"></script>
+    <script src="{% static 'base/js/bootstrap.js'%}"></script>
+    {% block js %}{% endblock %}
+</body>
+</html>

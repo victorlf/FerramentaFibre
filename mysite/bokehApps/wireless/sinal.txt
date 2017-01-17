@@ -1,0 +1,8 @@
+Handoff:
+
+Mudando a nome do ITX39 para ITX49, fazer o Nó se conectar com o 41(39) e continuar conectado ao passar
+pelo 41(41).
+
+Variação do Sinal:
+
+Se conectar com o FibreUFF e ver como o sinal varia 

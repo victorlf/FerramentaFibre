@@ -1,0 +1,106 @@
+{% extends 'base/baseClean.html' %}
+
+{% block title %}Experimentos Sem Fio{% endblock %}
+
+{% block script %}
+    <script type="text/javascript">
+
+
+    //<!-------------------------------------------Image>
+
+    var imageNr = 0; // Serial number of current image
+    var finished = new Array(); // References to img objects which have finished downloading
+    var paused = false;
+
+    function createImageLayer() {
+      var img = new Image();
+      img.style.position = "absolute";
+    //img.style.position = "relative";
+
+      img.style.zIndex = -1;
+      img.onload = imageOnload;
+      img.onclick = imageOnclick;
+      img.src = "http://10.134.11.22:8080/?action=snapshot&n=" + (++imageNr);
+      var webcam = document.getElementById("webcam");
+      webcam.insertBefore(img, webcam.firstChild);
+    }
+
+    // Two layers are always present (except at the very beginning), to avoid flicker
+    function imageOnload() {
+      this.style.zIndex = imageNr; // Image finished, bring to front!
+      while (1 < finished.length) {
+        var del = finished.shift(); // Delete old image(s) from document
+        del.parentNode.removeChild(del);
+      }
+      finished.push(this);
+      if (!paused) createImageLayer();
+    }
+
+    function imageOnclick() { // Clicking on the image will pause the stream
+      paused = !paused;
+      if (!paused) createImageLayer();
+    }
+
+
+    //<!-------------------------------------------Position update>
+    setInterval("update_pos();",500);
+
+
+    function update_pos()
+    {
+                    var xmlhttp;
+                    xmlhttp=new XMLHttpRequest();
+
+    xmlhttp.onreadystatechange=function()
+                    {
+                                    if (xmlhttp.readyState==4 && xmlhttp.status==200)
+                                    {
+                                    document.getElementById("train_position").innerHTML=xmlhttp.responseText;
+                    //Move the image to the new location
+                    document.getElementById("train_img").style.left=xmlhttp.responseText;
+                                    }
+                    }
+    xmlhttp.open("GET","spin_counter",true);
+    xmlhttp.send();
+    }
+
+    //<!-------------------------------------------Script AJAX>
+
+    function xmlhttpPost(strURL) {
+        var xmlHttpReq = false;
+        var self = this;
+        // Mozilla/Safari
+        if (window.XMLHttpRequest) {
+            self.xmlHttpReq = new XMLHttpRequest();
+        }
+        // IE
+        else if (window.ActiveXObject) {
+            self.xmlHttpReq = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        self.xmlHttpReq.open('POST', strURL, true);
+        self.xmlHttpReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        self.xmlHttpReq.send();
+    }
+
+
+
+    </script>
+
+{% endblock %}
+
+{% block main %}
+    <div class="container">
+        <div class="row">
+            <div id="webcam" class="col col-md-10"><noscript>
+                <img src="ttp://10.134.11.21:8080/?action=snapshot" /></noscript>
+            </div>
+            <div class="col col-md-1">
+                <div class="btn-group-vertical ">
+                    <button type="button" class="btn btn-primary btn-lg" onclick='JavaScript:xmlhttpPost("http://10.134.11.23/cgi-bin/fwd.cgi")'>FWD</button>
+                    <button type="button" class="btn btn-primary btn-lg" onclick='JavaScript:xmlhttpPost("http://10.134.11.23/cgi-bin/halt.cgi")'>STOP</button>
+                    <button type="button" class="btn btn-primary btn-lg" onclick='JavaScript:xmlhttpPost("http://10.134.11.23/cgi-bin/bwd.cgi")'>BWD</button>
+                <div>
+            <div>
+        </div>
+    </div>
+{% endblock %}
